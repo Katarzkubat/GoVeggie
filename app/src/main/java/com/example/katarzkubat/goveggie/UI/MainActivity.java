@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity
             String restaurantPreferences = RestaurantPreferences.getChosenPreferences(MainActivity.this);
 
             restaurantRequestUrl = NetworkUtils.buildRestaurantUrl
-                    ("AIzaSyCZyLiKgSRhoxdxHDiqpkeuiwwn6jcxzcY", restaurantPreferences, 50.04709612010728,
+                    ("AIzalhlhlhSyCZyLiKgSRhoxdxHDiqpkeuiwwn6jcxzcY", restaurantPreferences, 50.04709612010728,
                             19.94320872010728);
 
             try {
