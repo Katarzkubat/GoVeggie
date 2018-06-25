@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preference_labels">
+        <item>@string/sorted_by_vegetarian</item>
+        <item>@string/sorted_by_vegan</item>
+    </array>
+
+    <array name="preference_values">
+        <item>@string/vegetarian</item>
+        <item>@string/vegan</item>
+    </array>
+</resources>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:title="@string/settings"
+        android:id="@+id/settings"
+        app:showAsAction="collapseActionView"/>
+
+    <item android:title="@string/location"
+        android:id="@+id/location"/>
+
+    <item android:title="@string/open_map"
+        android:id="@+id/map"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_round_map_24px"
+        tools:ignore="AlwaysShowAction" />
+
+    <item android:title="@string/favorites"
+        android:id="@+id/favorites"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_round_favorite_24px"/>
+
+</menu>
