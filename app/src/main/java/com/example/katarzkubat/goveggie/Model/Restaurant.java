@@ -1,27 +1,33 @@
 package com.example.katarzkubat.goveggie.Model;
 
 import android.arch.persistence.room.ColumnInfo;
-import android.arch.persistence.room.Embedded;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
+import android.util.Log;
 
 import java.util.ArrayList;
 
-@Entity(tableName = "restaurant")
+@Entity(tableName = "restaurant", indices = {@Index(value = "place_id",
+        unique = true)})
 public class Restaurant {
 
-    //pytanie o id w tabelce - jest id miejsca
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name="id")
-    private int id;
+    @ColumnInfo(name = "row_id")
+    private int row_id;
     @ColumnInfo(name = "geometry")
-    private Geoinfo geometry;
-    //private String id;
+    private Placeinfo geometry;
+    @ColumnInfo(name = "id")
+    private String id;
     @ColumnInfo(name = "name")
     private String name;
-    @ColumnInfo(name = "open_now")
-    private boolean open_now;
+
+    @ColumnInfo(name = "opening_hours")
+    private OpeningHours opening_hours;
+
+    /*@ColumnInfo(name = "open_now")
+    private boolean open_now;*/
 
     @ColumnInfo(name = "photos")
     private ArrayList<Pictures> photos;
@@ -33,47 +39,61 @@ public class Restaurant {
     private String vicinity;
     @ColumnInfo(name = "nextPage")
     private String nextPage;
-    @Ignore
-    public Restaurant() {}
+    @ColumnInfo(name = "isFavorite")
+    private boolean isFavorite;
+    @ColumnInfo(name = "isVegan")
+    private boolean isVegan;
+    @ColumnInfo(name = "isVegetarian")
+    private boolean isVegetarian;
+
+
+    public Restaurant() {
+    }
 
     @Ignore
-    public Restaurant(Geoinfo geometry, String name, boolean open_now, ArrayList<Pictures> photos, String place_id, double rating, String vicinity) {
+    public Restaurant(Placeinfo geometry, String name, OpeningHours opening_hours, ArrayList<Pictures> photos,
+                      String place_id, double rating, String vicinity, boolean isFavorite, boolean isVegan) {
         this.geometry = geometry;
         this.name = name;
-        this.open_now = open_now;
+        this.opening_hours = opening_hours;
         this.photos = photos;
         this.place_id = place_id;
         this.rating = rating;
         this.vicinity = vicinity;
+        this.isFavorite = isFavorite;
+        this.isVegan = isVegan;
     }
 
-    public Restaurant(int id, String nextPage, Geoinfo geometry, String name,
-                      boolean open_now, ArrayList<Pictures> photos, String place_id, double rating, String vicinity) {
+    public Restaurant(String id, String nextPage, Placeinfo geometry, String name,
+                      OpeningHours opening_hours, ArrayList<Pictures> photos, String place_id,
+                      double rating, String vicinity, boolean isFavorite, boolean isVegan) {
         this.id = id;
         this.geometry = geometry;
         this.name = name;
-        this.open_now = open_now;
+        this.opening_hours = opening_hours;
         this.nextPage = nextPage;
         this.photos = photos;
         this.place_id = place_id;
         this.rating = rating;
         this.vicinity = vicinity;
+        this.isFavorite = isFavorite;
+        this.isVegan = isVegan;
     }
 
-    public int getId(){
+    public int getRow_id() {
+        return row_id;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public Geoinfo getGeometry() {
+    public Placeinfo getGeometry() {
         return geometry;
     }
 
     public String getName() {
         return name;
-    }
-
-    public boolean isOpenNow() {
-        return open_now;
     }
 
     public ArrayList<Pictures> getPhotos() {
@@ -88,11 +108,15 @@ public class Restaurant {
         return vicinity;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public void setGeometry(Geoinfo geometry) {
+    public void setRow_id(int row_id) {
+        this.row_id = row_id;
+    }
+
+    public void setGeometry(Placeinfo geometry) {
         this.geometry = geometry;
     }
 
@@ -100,10 +124,17 @@ public class Restaurant {
         this.name = name;
     }
 
-    public void setOpen_now(boolean open_now) {
+    /*public void setOpen_now(boolean open_now) {
         this.open_now = open_now;
+    }*/
+    public void setOpening_hours(OpeningHours opening_hours) {
+        Log.d("setOpening_hours", ""+opening_hours);
+        this.opening_hours = opening_hours;
     }
-
+    public OpeningHours getOpening_hours() {
+        Log.d("getOpening_hours", ""+opening_hours);
+        return opening_hours;
+    }
     public void setPhotos(ArrayList<Pictures> photos) {
         this.photos = photos;
     }
@@ -121,16 +152,46 @@ public class Restaurant {
     }
 
     public boolean isOpen_now() {
-        return open_now;
+        Log.d("RESTISOPEN", ""+opening_hours);
+        Log.d("RESTISOPEN2", ""+opening_hours.isOpen_now());
+
+        return opening_hours != null ? opening_hours.isOpen_now() : false;
     }
 
     public String getPlace_id() {
         return place_id;
     }
 
-    public String getNextPage(){
+    public String getNextPage() {
         return nextPage;
     }
 
+    public void setNextPage(String nextPage) {
+        this.nextPage = nextPage;
+    }
+
+    public boolean getIsFavorite() {
+        return isFavorite;
+    }
+
+    public void setIsFavorite(boolean favorite) {
+        isFavorite = favorite;
+    }
+
+    public boolean getIsVegan() {
+        return isVegan;
+    }
+
+    public void setIsVegan(boolean vegan) {
+        isVegan = vegan;
+    }
+
+    public boolean getIsVegetarian() {
+        return isVegetarian;
+    }
+
+    public void setIsVegetarian(boolean vegetarian) {
+        isVegetarian = vegetarian;
+    }
 }
 

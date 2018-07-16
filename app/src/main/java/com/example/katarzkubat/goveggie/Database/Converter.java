@@ -1,10 +1,11 @@
-package com.example.katarzkubat.goveggie.database;
-
+package com.example.katarzkubat.goveggie.Database;
 
 import android.arch.persistence.room.TypeConverter;
+import android.util.Log;
 
+import com.example.katarzkubat.goveggie.Model.Locationinfo;
+import com.example.katarzkubat.goveggie.Model.OpeningHours;
 import com.example.katarzkubat.goveggie.Model.Pictures;
-import com.example.katarzkubat.goveggie.Model.Geoinfo;
 import com.example.katarzkubat.goveggie.Model.Placeinfo;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -24,24 +25,24 @@ public class Converter {
    @TypeConverter
     public static String toReference(Pictures pictures) {
        return pictures == null ? null : pictures.getPhoto_reference();
+}
+
+    @TypeConverter
+    public static Placeinfo placeFromString(String latlng) {
+        if(latlng != null) {
+            List<String> list = Arrays.asList(latlng.split(";"));
+            String lat = list.get(0);
+            String lng = list.get(1);
+
+            return new Placeinfo(new Locationinfo(Double.parseDouble(lat), Double.parseDouble(lng)));
+        }
+        return null;
     }
 
-   @TypeConverter
-    public static Geoinfo fromString(String latlng) {
-       if(latlng != null) {
-           List<String> list = Arrays.asList(latlng.split(";"));
-           String lat = list.get(0);
-           String lng = list.get(1);
-
-           return new Geoinfo(new Placeinfo(Double.parseDouble(lat), Double.parseDouble(lng)));
-       }
-       return null;
-   }
-
-   @TypeConverter
-    public static String toGeoString(Geoinfo geoinfo) {
-       return geoinfo == null ? null : geoinfo.toString();
-   }
+    @TypeConverter
+    public static String toPlaceString(Placeinfo placeinfo) {
+        return placeinfo == null ? null : placeinfo.toString();
+    }
 
    @TypeConverter
     public static String toPhotoString(ArrayList<Pictures> pictures) {
@@ -60,4 +61,15 @@ public class Converter {
        }
        return null;
    }
+
+    @TypeConverter
+    public static OpeningHours openingFromString(String opening) {
+        return new OpeningHours(opening.equals("true") ? true : false);
+    }
+
+    @TypeConverter
+    public static String toOpeningString(OpeningHours openingHours) {
+        return String.valueOf(openingHours == null ? false : openingHours.getOpen_now());
+    }
+
 }

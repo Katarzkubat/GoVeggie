@@ -15,4 +15,5 @@ public class Pictures {
     public void setPhoto_reference(String photo_reference) {
         this.photo_reference = photo_reference;
     }
+
 }

@@ -1,7 +1,6 @@
 package com.example.katarzkubat.goveggie.Utilities;
 
 import android.net.Uri;
-import android.util.Log;
 
 import com.example.katarzkubat.goveggie.Model.Pictures;
 
@@ -10,7 +9,6 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class NetworkUtils {
@@ -56,7 +54,7 @@ public class NetworkUtils {
                 .appendPath(NEARBYSEARCH)
                 .appendPath(JSON)
                 .appendQueryParameter(LOCATION, String.valueOf(latitude)+ "," + longitude)
-                .appendQueryParameter(RADIUS, String.valueOf(1500))
+                .appendQueryParameter(RADIUS, String.valueOf(5000))
                 .appendQueryParameter(TYPE, "restaurant")
                 .appendQueryParameter(KEYWORD, preference)
                 .appendQueryParameter(API_KEY, secretKey)
@@ -71,11 +69,11 @@ public class NetworkUtils {
         return movieUrl;
     }
 
-    public static String getImageUrl(ArrayList<Pictures> photoreference, String secretKey) {
+    public static String getImageUrl(Pictures photo, String secretKey) {
         Uri builtImageUri = Uri.parse(RESTAURANT_URL).buildUpon()
                 .appendPath(PHOTO_PATH)
                 .appendQueryParameter(MAX_WIDTH, "360")
-                .appendQueryParameter(PHOTOREFERENCE_PARAMETER, String.valueOf(photoreference))
+                .appendQueryParameter(PHOTOREFERENCE_PARAMETER, photo.getPhoto_reference())
                 .appendQueryParameter(API_KEY, secretKey)
                 .build();
         return builtImageUri.toString();

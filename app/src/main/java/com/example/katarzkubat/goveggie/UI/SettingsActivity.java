@@ -27,6 +27,7 @@ public class SettingsActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(R.string.settings);
         mToolbar.setTitleTextColor(getResources().getColor(white));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mToolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24px);
 
     }
 }

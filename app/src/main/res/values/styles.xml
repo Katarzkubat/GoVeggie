@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="Theme.Bacon" parent="Theme.AppCompat.Light.NoActionBar">
@@ -9,22 +9,8 @@
         <item name="coordinatorLayoutStyle">@style/Widget.Design.CoordinatorLayout</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
         <item name="android:fontFamily">@font/montserrat</item>
-    </style>
-
-    <!--style name="Theme.Bacon.Detail" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-    </style-->
-
-    <style name="CardViewStyle" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="cardCornerRadius">2dp</item>
-        <item name="cardElevation">@dimen/card_elevation</item>
-        <item name="contentPaddingBottom">@dimen/spacing_xlarge</item>
-        <item name="contentPaddingTop">@dimen/spacing_xlarge</item>
-        <item name="contentPaddingLeft">@dimen/spacing_large</item>
-        <item name="contentPaddingRight">@dimen/spacing_large</item>
-        <item name="cardBackgroundColor">@color/white</item>
+        <item name="android:windowContentTransitions" tools:targetApi="lollipop">true</item>
+        <item name="android:windowExitTransition" tools:targetApi="lollipop">@transition/explode</item>
     </style>
 
 </resources>

@@ -5,5 +5,5 @@
         android:entries="@array/preference_labels"
         android:entryValues="@array/preference_values"
         android:key="@string/option"
-        android:title="@string/sort" />
+        android:title="@string/choose" />
 </PreferenceScreen>

@@ -1,15 +1,12 @@
 package com.example.katarzkubat.goveggie.UI;
 
 import android.content.pm.PackageManager;
-import android.location.LocationManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.RadioButton;
-import android.widget.Toast;
 
 import com.example.katarzkubat.goveggie.R;
 
@@ -36,12 +33,13 @@ public class LocationActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(R.string.location);
         mToolbar.setTitleTextColor(getResources().getColor(white));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mToolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24px);
 
         mCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                ActivityCompat.requestPermissions(LocationActivity.this,
+             ActivityCompat.requestPermissions(LocationActivity.this,
                         new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
                         PERMISSIONS_REQUEST_FINE_LOCATION);
             }

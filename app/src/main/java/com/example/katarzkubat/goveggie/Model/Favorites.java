@@ -3,16 +3,20 @@ package com.example.katarzkubat.goveggie.Model;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
 import java.util.ArrayList;
 
-@Entity(tableName = "Favorites")
-public class Favorites {
+@Entity(tableName = "Favorites", indices = {@Index(value = "place_id",
+        unique = true)})
+public class Favorites{
 
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "row_id")
+    private int row_id;
     @ColumnInfo(name = "id")
-    private int id;
+    private String id;
     @ColumnInfo(name = "name")
     private String name;
     @ColumnInfo(name = "open_now")
@@ -22,14 +26,15 @@ public class Favorites {
     @ColumnInfo(name = "place_id")
     private String place_id;
     @ColumnInfo(name = "rating")
-    private int rating;
+    private double rating;
     @ColumnInfo(name = "vicinity")
     private String vicinity;
 
     @Ignore
     public Favorites() {}
 
-    public Favorites(int id, String name, boolean open_now, ArrayList<Pictures> picture, String place_id, int rating, String vicinity) {
+    public Favorites(String id, String name, boolean open_now, ArrayList<Pictures> picture, String place_id, double rating, String vicinity) {
+
         this.id = id;
         this.name = name;
         this.open_now = open_now;
@@ -40,7 +45,7 @@ public class Favorites {
     }
 
     @Ignore
-    public Favorites(String name, boolean open_now, ArrayList<Pictures> picture, String place_id, int rating, String address) {
+    public Favorites(String name, boolean open_now, ArrayList<Pictures> picture, String place_id, double rating, String vicinity) {
         this.name = name;
         this.open_now = open_now;
         this.picture = picture;
@@ -49,8 +54,12 @@ public class Favorites {
         this.vicinity = vicinity;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
+    }
+
+    public int getRow_id(){
+        return row_id;
     }
 
     public String getName() {
@@ -69,7 +78,7 @@ public class Favorites {
         return place_id;
     }
 
-    public int getRating() {
+    public double getRating() {
         return rating;
     }
 
@@ -77,8 +86,12 @@ public class Favorites {
         return vicinity;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
+    }
+
+    public void setRow_id(int row_id) {
+        this.row_id = row_id;
     }
 
     public void setName(String name) {
