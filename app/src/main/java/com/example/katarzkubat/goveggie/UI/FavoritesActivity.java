@@ -14,12 +14,13 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import com.example.katarzkubat.goveggie.Adapters.FavoritesAdapter;
 import com.example.katarzkubat.goveggie.Model.Restaurant;
 import com.example.katarzkubat.goveggie.Utilities.Clicker;
 import com.example.katarzkubat.goveggie.ViewModel.FavoriteViewModel;
-import com.example.katarzkubat.goveggie.Model.Favorites;
 import com.example.katarzkubat.goveggie.R;
 import com.example.katarzkubat.goveggie.Utilities.AppExecutors;
 import com.example.katarzkubat.goveggie.Database.AppDatabase;
@@ -39,6 +40,8 @@ public class FavoritesActivity extends AppCompatActivity implements Clicker {
     RecyclerView mRecycler;
     @BindView(R.id.favorites_toolbar)
     Toolbar mToolbar;
+    @BindView(R.id.nofavorite_message_display)
+    TextView noFavorite;
 
     private AppDatabase mDb;
     private FavoritesAdapter favoritesAdapter;
@@ -94,7 +97,10 @@ public class FavoritesActivity extends AppCompatActivity implements Clicker {
         viewModel.getFavorites().observe(this, new Observer<List<Restaurant>>() {
             @Override
             public void onChanged(@Nullable List<Restaurant> favoritesList) {
+                assert favoritesList != null;
+                if(favoritesList.size()!=0) {
                 favoritesAdapter.setFavorites(favoritesList);
+            } else {noFavorite.setVisibility(View.VISIBLE);}
 
             }
         });
@@ -104,11 +110,9 @@ public class FavoritesActivity extends AppCompatActivity implements Clicker {
     @Override
     public void onClick(Restaurant singleRestaurant) {
 
-
-        Log.d("FAVORITECLICK", String.valueOf(singleRestaurant.getRow_id()));
         Intent openDetail = new Intent(this, DetailActivity.class);
         openDetail.putExtra(OBJECT_NAME, singleRestaurant.getRow_id());
-        startActivity(openDetail);
+        startActivity(openDetail, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
 
     }
 }

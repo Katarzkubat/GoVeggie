@@ -10,7 +10,7 @@ import android.util.Log;
 import com.example.katarzkubat.goveggie.Model.Favorites;
 import com.example.katarzkubat.goveggie.Model.Restaurant;
 
-@Database(entities = {Restaurant.class, Favorites.class}, version = 7, exportSchema = false)
+@Database(entities = {Restaurant.class, Favorites.class}, version = 8, exportSchema = false)
 @TypeConverters({Converter.class})
 public abstract class AppDatabase extends RoomDatabase {
 
@@ -34,5 +34,4 @@ public abstract class AppDatabase extends RoomDatabase {
     }
 
     public abstract RestaurantDao restaurantDao();
- //   public abstract FavoriteDao favoriteDao();
 }

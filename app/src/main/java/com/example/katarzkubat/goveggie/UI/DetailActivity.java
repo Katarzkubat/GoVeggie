@@ -2,16 +2,13 @@ package com.example.katarzkubat.goveggie.UI;
 
 import android.Manifest;
 import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.transition.TransitionManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -40,6 +37,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -47,6 +46,7 @@ import butterknife.ButterKnife;
 
 import static com.example.katarzkubat.goveggie.R.color.white;
 import static com.example.katarzkubat.goveggie.UI.MainActivity.OBJECT_NAME;
+
 public class DetailActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     @BindView(R.id.detail_open_hours)
@@ -82,18 +82,16 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
                 .findFragmentById(R.id.detail_map_view);
         mapFragment.getMapAsync(this);
 
-        mDb = AppDatabase.getInstance(getApplicationContext());
-
         Intent takeRestaurantObject = getIntent();
         final int rowId = takeRestaurantObject.getIntExtra(OBJECT_NAME, 1);
 
-        mDb.restaurantDao().loadFavoritesById(rowId);
+        mDb = AppDatabase.getInstance(getApplicationContext());
 
         DetailViewModel detailViewModel = ViewModelProviders.of(this, new DisplayDetailModelFactory(this.getApplication(), rowId)).get(DetailViewModel.class);
         detailViewModel.getRestaurant().observe(this, new Observer<Restaurant>() {
             @Override
             public void onChanged(@Nullable final Restaurant restaurant) {
-                if(restaurant == null){
+                if (restaurant == null) {
                     return;
                 }
 
@@ -116,8 +114,24 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
                 cToolbar.setExpandedTitleTypeface(ResourcesCompat.getFont(getApplicationContext(), R.font.montserrat));
 
                 Picasso.get()
-                        .load(NetworkUtils.getImageUrl(restaurant.getPhotos().get(0), "AIzaSyCZyLiKgSRhoxdxHDiqpkeuiwwn6jcxzcY"))
-                        .into(mImageView);
+                        .load(NetworkUtils.getImageUrl(restaurant.getPhotos().get(0),
+                                "AIzaSyCZyLiKgSRhoxdxHDiqpkeuiwwn6jcxzcY"))
+                        .networkPolicy(NetworkPolicy.OFFLINE)
+                        .into(mImageView, new Callback() {
+                            @Override
+                            public void onSuccess() {
+                            }
+
+                            @Override
+                            public void onError(Exception e) {
+                                Picasso.get()
+                                        .load(NetworkUtils.getImageUrl(restaurant.getPhotos().get(0),
+                                                "AIzaSyCZyLiKgSRhoxdxHDiqpkeuiwwn6jcxzcY"))
+                                        .placeholder(R.drawable.ic_carrot)
+                                        .error(R.drawable.ic_carrot)
+                                        .into(mImageView);
+                            }
+                        });
 
                 mAddress.setText(restaurant.getVicinity());
 
@@ -130,7 +144,7 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
                 mRatingBar.setRating((float) restaurant.getRating());
                 mRating.setText(Double.toString(restaurant.getRating()));
 
-                if(restaurant.getIsFavorite()) {
+                if (restaurant.getIsFavorite()) {
                     mAddToFavorite.setImageResource(R.drawable.ic_round_favorite_orange24px);
                 } else {
                     mAddToFavorite.setImageResource(R.drawable.ic_round_favorite_border_24px);
@@ -202,7 +216,7 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
         viewModel.getRestaurant().observe(this, new Observer<Restaurant>() {
             @Override
             public void onChanged(@Nullable Restaurant restaurant) {
-                if(restaurant != null) {
+                if (restaurant != null) {
                     LatLng singlePlace = new LatLng(restaurant.getGeometry().getLocation().getLat(),
                             restaurant.getGeometry().getLocation().getLng());
 
@@ -213,9 +227,20 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
     }
 
     private void displayLocationPoint() {
-
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                new LatLng(SavingLocation.mLastKnownLocation.getLatitude(),
-                        SavingLocation.mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+        if (SavingLocation.mLastKnownLocation != null) {
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                    new LatLng(SavingLocation.mLastKnownLocation.getLatitude(),
+                            SavingLocation.mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+        } else {
+            SavingLocation.getDeviceLocation(this, new AsyncTask<Void, Void, Void>() {
+                protected void onPreExecute() {}
+                protected Void doInBackground(Void... unused) {
+                    return unused[0];
+                }
+                protected void onPostExecute(Void unused) {
+                    displayLocationPoint();
+                }
+            });
+        }
     }
 }

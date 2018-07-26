@@ -1,8 +1,11 @@
 package com.example.katarzkubat.goveggie.Adapters;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +16,8 @@ import com.example.katarzkubat.goveggie.Model.Restaurant;
 import com.example.katarzkubat.goveggie.R;
 import com.example.katarzkubat.goveggie.Utilities.Clicker;
 import com.example.katarzkubat.goveggie.Utilities.NetworkUtils;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -24,11 +29,11 @@ import butterknife.ButterKnife;
 public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.RestaurantViewHolders> {
 
     private ArrayList<Restaurant> restaurants = new ArrayList<>();
-    private final Context appContext;
     private Clicker clicker;
+    private Context context;
 
     public RestaurantAdapter(Context appContext, Clicker clicker) {
-        this.appContext = appContext;
+        context = appContext;
         this.clicker = clicker;
     }
 
@@ -47,12 +52,26 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
         Restaurant singleRestaurant = restaurants.get(position);
         holder.mRestaurantName.setText(singleRestaurant.getName());
 
+        final Restaurant sr = singleRestaurant;
+        final RestaurantAdapter.RestaurantViewHolders fastHolder = holder;
         Picasso.get()
                 .load(NetworkUtils.getImageUrl(singleRestaurant.getPhotos().get(0),
                         "AIzaSyCZyLiKgSRhoxdxHDiqpkeuiwwn6jcxzcY"))
-                .resize(80, 80)
-                .centerCrop()
-                .into(holder.mPicture);
+                .networkPolicy(NetworkPolicy.OFFLINE)
+                .into(holder.mPicture, new Callback() {
+                    @Override
+                    public void onSuccess() {}
+
+                    @Override
+                    public void onError(Exception e) {
+                        Picasso.get()
+                                .load(NetworkUtils.getImageUrl(sr.getPhotos().get(0),
+                                        "AIzaSyCZyLiKgSRhoxdxHDiqpkeuiwwn6jcxzcY"))
+                                .placeholder(R.drawable.ic_carrot)
+                                .error(R.drawable.ic_carrot)
+                                .into(fastHolder.mPicture);
+                    }
+                });
     }
 
     @Override

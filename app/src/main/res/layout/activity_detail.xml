@@ -34,9 +34,9 @@ tools:context="com.example.katarzkubat.goveggie.UI.DetailActivity">
         <ImageView
             android:id="@+id/detail_image"
             android:layout_width="match_parent"
-            android:layout_height="360dp"
-            android:layout_marginBottom="56dp"
-            android:layout_marginTop="56dp"
+            android:layout_height="@dimen/detail_image_height"
+            android:layout_marginBottom="@dimen/detail_image_margin"
+            android:layout_marginTop="@dimen/detail_image_margin"
             android:contentDescription="@string/app_name"
             android:foregroundGravity="center"
             android:paddingEnd="@dimen/spacing_medium"

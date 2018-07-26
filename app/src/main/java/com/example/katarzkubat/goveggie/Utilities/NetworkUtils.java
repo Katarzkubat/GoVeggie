@@ -1,5 +1,8 @@
 package com.example.katarzkubat.goveggie.Utilities;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 
 import com.example.katarzkubat.goveggie.Model.Pictures;
@@ -54,19 +57,19 @@ public class NetworkUtils {
                 .appendPath(NEARBYSEARCH)
                 .appendPath(JSON)
                 .appendQueryParameter(LOCATION, String.valueOf(latitude)+ "," + longitude)
-                .appendQueryParameter(RADIUS, String.valueOf(5000))
+                .appendQueryParameter(RADIUS, String.valueOf(4000))
                 .appendQueryParameter(TYPE, "restaurant")
                 .appendQueryParameter(KEYWORD, preference)
                 .appendQueryParameter(API_KEY, secretKey)
                 .build();
 
-        URL movieUrl = null;
+        URL restaurantUrl = null;
         try {
-            movieUrl = new URL(builtRestaurantUri.toString());
+            restaurantUrl = new URL(builtRestaurantUri.toString());
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-        return movieUrl;
+        return restaurantUrl;
     }
 
     public static String getImageUrl(Pictures photo, String secretKey) {
@@ -80,5 +83,12 @@ public class NetworkUtils {
 
     }
 
-
+    public static boolean isNetworkConnectionAvailable(Context context) {
+        ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo info = manager.getActiveNetworkInfo();
+        if (info == null)
+            return false;
+        NetworkInfo.State network = info.getState();
+        return (network == NetworkInfo.State.CONNECTED || network == NetworkInfo.State.CONNECTING);
+    }
 }

@@ -29,7 +29,12 @@
     <string name="opening_hours_open">Open</string>
     <string name="opening_hours_closed">Closed</string>
     <string name="rating_value_label">Rating</string>
-
-    <!-- Strings related to Settings -->
+    <string name="widget_image">Widget image</string>
+    <string name="appwidget_text">Widget list</string>
+    <string name="location_checkbox">Checkbox</string>
+    <string name="lackof_favorite">No favorite to display</string>
+    <string name="error_message_internet">Ensure you have internet access.</string>
+    <string name="error_message_location">Please open settings and turn on location permission.</string>
+    <string name="error_message_norestaurants">Sorry, no restaurant to display</string>
 
 </resources>

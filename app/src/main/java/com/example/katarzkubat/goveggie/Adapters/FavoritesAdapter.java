@@ -1,10 +1,8 @@
 package com.example.katarzkubat.goveggie.Adapters;
 
-import
-        android.content.Context;
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +10,12 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.example.katarzkubat.goveggie.Model.Favorites;
 import com.example.katarzkubat.goveggie.Model.Restaurant;
 import com.example.katarzkubat.goveggie.R;
 import com.example.katarzkubat.goveggie.Utilities.Clicker;
 import com.example.katarzkubat.goveggie.Utilities.NetworkUtils;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -49,7 +48,6 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
     @Override
     public void onBindViewHolder(@NonNull FavoriteViewHolders holder, int position) {
         Restaurant singleFavorite = favorites.get(position);
-       // holder.mRating.setText(singleFavorite.getRating());
         holder.mName.setText(singleFavorite.getName());
         holder.mAddress.setText(singleFavorite.getVicinity());
         holder.mRatingBar.setRating((float) singleFavorite.getRating());
@@ -60,11 +58,27 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
             holder.mHours.setText(R.string.opening_hours_closed);
         }
 
+        //Following StackOverflow
+        final Restaurant sf = singleFavorite;
+        final FavoritesAdapter.FavoriteViewHolders fastHolder = holder;
         Picasso.get()
-                .load(NetworkUtils.getImageUrl(singleFavorite.getPhotos().get(0), "AIzaSyCZyLiKgSRhoxdxHDiqpkeuiwwn6jcxzcY"))
-              //  .resize(60, 60)
-              //  .centerCrop()
-                .into(holder.mPicture);
+                .load(NetworkUtils.getImageUrl(singleFavorite.getPhotos().get(0),
+                        "AIzaSyCZyLiKgSRhoxdxHDiqpkeuiwwn6jcxzcY"))
+                .networkPolicy(NetworkPolicy.OFFLINE)
+                .into(holder.mPicture, new Callback() {
+                    @Override
+                    public void onSuccess() {}
+
+                    @Override
+                    public void onError(Exception e) {
+                        Picasso.get()
+                                .load(NetworkUtils.getImageUrl(sf.getPhotos().get(0),
+                                        "AIzaSyCZyLiKgSRhoxdxHDiqpkeuiwwn6jcxzcY"))
+                                .placeholder(R.drawable.ic_carrot)
+                                .error(R.drawable.ic_carrot)
+                                .into(fastHolder.mPicture);
+                    }
+                });
     }
 
     @Override
@@ -72,7 +86,6 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
         if (null == favorites) {
             return 0;
         }
-        Log.d("FAVORITESAD", String.valueOf(favorites.size()));
         return favorites.size();
     }
 

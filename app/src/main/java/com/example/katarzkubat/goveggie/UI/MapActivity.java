@@ -1,6 +1,7 @@
 package com.example.katarzkubat.goveggie.UI;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -8,14 +9,12 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.View;
 
 import com.example.katarzkubat.goveggie.Model.Restaurant;
 import com.example.katarzkubat.goveggie.R;
@@ -23,7 +22,7 @@ import com.example.katarzkubat.goveggie.Utilities.RestaurantPreferences;
 import com.example.katarzkubat.goveggie.Utilities.SavingLocation;
 import com.example.katarzkubat.goveggie.ViewModel.MainViewModel;
 import com.example.katarzkubat.goveggie.Database.AppDatabase;
-import com.example.katarzkubat.goveggie.ViewModel.MainViewModelFactory;
+
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.PlaceDetectionClient;
@@ -115,7 +114,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }
 
         mMap.setMyLocationEnabled(true);
-        
+
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
         displayLocationPoint();
         displayPoints();
@@ -141,19 +140,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         AppDatabase mDb = AppDatabase.getInstance(getApplicationContext());
 
-        /*
-        preferences = RestaurantPreferences.getChosenPreferences(getApplicationContext());
-        MainViewModel viewModel = ViewModelProviders.of(this,
-        new MainViewModelFactory(this.getApplication(), preferences)).get(MainViewModel.class);
-         */
-
         String preferences = RestaurantPreferences.getChosenPreferences(getApplicationContext());
 
-        MainViewModel viewModel = ViewModelProviders.of(this, new MainViewModelFactory(this.getApplication(), preferences)).get(MainViewModel.class);
-        viewModel.getRestaurant().observe(this, new Observer<List<Restaurant>>() {
+        MainViewModel viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        viewModel.getRestaurant(preferences).observe(this, new Observer<List<Restaurant>>() {
             @Override
             public void onChanged(@Nullable List<Restaurant> restaurantList) {
 
+                assert restaurantList != null;
                 for (Restaurant restaurant : restaurantList) {
 
                     LatLng singlePlace = new LatLng(restaurant.getGeometry().getLocation().getLat(),
@@ -168,12 +162,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mMap.setOnInfoWindowClickListener(MapActivity.this);
     }
 
+    @SuppressLint("WrongConstant")
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onInfoWindowClick(Marker marker) {
+
         int rowId = hashMap.get(marker.getId());
         Intent openDetailIntent = new Intent(MapActivity.this, DetailActivity.class);
         openDetailIntent.putExtra(OBJECT_NAME, rowId);
-        startActivity(openDetailIntent);
+        startActivity(openDetailIntent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
     }
 
     @Override

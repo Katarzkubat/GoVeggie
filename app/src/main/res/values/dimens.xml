@@ -6,8 +6,30 @@
     <dimen name="spacing_xlarge">24dp</dimen>
     <dimen name="spacing_xxlarge">36dp</dimen>
 
+    <dimen name="main_image_size">80dp</dimen>
+    <dimen name="main_land_width">260dp</dimen>
+
     <dimen name="card_elevation">4dp</dimen>
 
     <dimen name="appbar_dimen">72dp</dimen>
     <dimen name="appbar_height">140dp</dimen>
+
+    <dimen name="rating_bar_size">18dp</dimen>
+
+    <dimen name="detail_image_height">360dp</dimen>
+    <dimen name="detail_image_margin">56dp</dimen>
+    <dimen name="map_fragment_height">360dp</dimen>
+    <dimen name="detail_text">18sp</dimen>
+    <dimen name="detail_rating_top_margin">30dp</dimen>
+
+    <dimen name="widget_margin">0dp</dimen>
+    <dimen name="widget_width">220dp</dimen>
+    <dimen name="widget_layout_height">480dp</dimen>
+    <dimen name="widget_image_size">48dp</dimen>
+    <dimen name="widget_text_label">16sp</dimen>
+    <dimen name="widget_text">14sp</dimen>
+
+    <dimen name="error_message">24sp</dimen>
+
+
 </resources>

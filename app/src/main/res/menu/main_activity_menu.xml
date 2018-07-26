@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:title="@string/settings"
         android:id="@+id/settings"
-        app:showAsAction="collapseActionView"/>
+        app:showAsAction="collapseActionView"
+        android:contentDescription="@string/settings"/>
 
     <item android:title="@string/location"
         android:id="@+id/location"/>
@@ -13,11 +14,13 @@
         android:id="@+id/map"
         app:showAsAction="always"
         android:icon="@drawable/ic_round_map_24px"
+        android:contentDescription="@string/open_map"
         tools:ignore="AlwaysShowAction" />
 
     <item android:title="@string/favorites"
         android:id="@+id/favorites"
         app:showAsAction="always"
-        android:icon="@drawable/ic_round_favorite_24px"/>
+        android:icon="@drawable/ic_round_favorite_24px"
+        android:contentDescription="@string/favorites"/>
 
 </menu>

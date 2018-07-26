@@ -22,7 +22,7 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="@dimen/detail_image_margin"
         tools:context="com.example.katarzkubat.goveggie.UI.MapActivity">
 
     </fragment>

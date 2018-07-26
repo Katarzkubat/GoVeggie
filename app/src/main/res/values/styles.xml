@@ -11,6 +11,7 @@
         <item name="android:fontFamily">@font/montserrat</item>
         <item name="android:windowContentTransitions" tools:targetApi="lollipop">true</item>
         <item name="android:windowExitTransition" tools:targetApi="lollipop">@transition/explode</item>
+        <item name="android:windowEnterTransition" tools:targetApi="lollipop">@transition/explode</item>
     </style>
 
 </resources>

@@ -26,9 +26,6 @@ public class Restaurant {
     @ColumnInfo(name = "opening_hours")
     private OpeningHours opening_hours;
 
-    /*@ColumnInfo(name = "open_now")
-    private boolean open_now;*/
-
     @ColumnInfo(name = "photos")
     private ArrayList<Pictures> photos;
     @ColumnInfo(name = "place_id")
@@ -45,6 +42,8 @@ public class Restaurant {
     private boolean isVegan;
     @ColumnInfo(name = "isVegetarian")
     private boolean isVegetarian;
+    @ColumnInfo(name = "isVisible")
+    private boolean isVisible;
 
 
     public Restaurant() {
@@ -52,7 +51,7 @@ public class Restaurant {
 
     @Ignore
     public Restaurant(Placeinfo geometry, String name, OpeningHours opening_hours, ArrayList<Pictures> photos,
-                      String place_id, double rating, String vicinity, boolean isFavorite, boolean isVegan) {
+                      String place_id, double rating, String vicinity, boolean isFavorite, boolean isVegan, boolean isVisible) {
         this.geometry = geometry;
         this.name = name;
         this.opening_hours = opening_hours;
@@ -62,11 +61,12 @@ public class Restaurant {
         this.vicinity = vicinity;
         this.isFavorite = isFavorite;
         this.isVegan = isVegan;
+        this.isVisible = isVisible;
     }
 
     public Restaurant(String id, String nextPage, Placeinfo geometry, String name,
                       OpeningHours opening_hours, ArrayList<Pictures> photos, String place_id,
-                      double rating, String vicinity, boolean isFavorite, boolean isVegan) {
+                      double rating, String vicinity, boolean isFavorite, boolean isVegan, boolean isVisible) {
         this.id = id;
         this.geometry = geometry;
         this.name = name;
@@ -78,6 +78,7 @@ public class Restaurant {
         this.vicinity = vicinity;
         this.isFavorite = isFavorite;
         this.isVegan = isVegan;
+        this.isVisible = isVisible;
     }
 
     public int getRow_id() {
@@ -124,15 +125,10 @@ public class Restaurant {
         this.name = name;
     }
 
-    /*public void setOpen_now(boolean open_now) {
-        this.open_now = open_now;
-    }*/
     public void setOpening_hours(OpeningHours opening_hours) {
-        Log.d("setOpening_hours", ""+opening_hours);
         this.opening_hours = opening_hours;
     }
     public OpeningHours getOpening_hours() {
-        Log.d("getOpening_hours", ""+opening_hours);
         return opening_hours;
     }
     public void setPhotos(ArrayList<Pictures> photos) {
@@ -152,9 +148,6 @@ public class Restaurant {
     }
 
     public boolean isOpen_now() {
-        Log.d("RESTISOPEN", ""+opening_hours);
-        Log.d("RESTISOPEN2", ""+opening_hours.isOpen_now());
-
         return opening_hours != null ? opening_hours.isOpen_now() : false;
     }
 
@@ -192,6 +185,14 @@ public class Restaurant {
 
     public void setIsVegetarian(boolean vegetarian) {
         isVegetarian = vegetarian;
+    }
+
+    public boolean isVisible() {
+        return isVisible;
+    }
+
+    public void setVisible(boolean visible) {
+        isVisible = visible;
     }
 }
 

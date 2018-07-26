@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/widget_width"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <TextView
+        android:paddingStart="@dimen/spacing_large"
+        android:paddingEnd="@dimen/spacing_large"
+        android:id="@+id/widget_title_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/spacing_medium"
+        android:paddingBottom="@dimen/spacing_medium"
+        android:text="@string/app_name"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/widget_text_label"
+        android:textStyle="bold"
+        android:background="@drawable/shape"/>
+
+    <ListView
+        android:id="@+id/widget_restaurant_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/appwidget_text"
+        tools:text="@string/appwidget_text"
+        tools:listitem="@layout/restaurant_widget_list_item"/>
+
+</LinearLayout>

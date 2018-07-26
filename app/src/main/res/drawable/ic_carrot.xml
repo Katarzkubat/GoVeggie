@@ -1,0 +1,16 @@
+<vector android:autoMirrored="true" android:height="24dp"
+
+    android:viewportHeight="512.0" android:viewportWidth="512.0"
+    android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#6ECD24" android:pathData="M503.1,136.2c-5.7,-5.7 -13.2,-9.2 -21.2,-9.2h-54.9l54.9,-54.5c11.7,-11.7 11.7,-30.8 0,-42.4s-30.8,-11.7 -42.4,0L385,85.1V30.1c0,-8.1 -3.5,-15.5 -9.2,-21.2C370.1,3.2 362.7,0 354.6,0c-14.8,0 -27.2,10.9 -29.7,25H325v162h162.4c13.9,-2.6 24.6,-14.9 24.6,-29.6C512,149.3 508.8,141.9 503.1,136.2z"/>
+    <path android:fillColor="#66BD21" android:pathData="M487.4,187c13.9,-2.6 24.6,-14.9 24.6,-29.6c0,-8.1 -3.2,-15.5 -8.9,-21.2S489.9,127 481.9,127h-54.9l54.9,-54.5c11.7,-11.7 11.7,-30.8 0,-42.4L325,187H487.4z"/>
+    <path android:fillColor="#FEA832" android:pathData="M333.4,284.7l20.6,41.8c-0.2,0.2 -0.2,0.2 -0.4,0.4l-102.5,66.4l-23.8,-2.5l-2.1,19.1l-144.9,94C59.9,517 32.4,514 15.2,496.8c-17.2,-17.2 -20.2,-44.8 -7,-65.1l60.5,-93.6l31.4,10.2l-14.6,-35.8l66.6,-103.1l32.9,11.7l-16.1,-37.3l16.3,-25.2c36.1,-56 109,-72.5 165.7,-38c8.5,5.1 15.9,11.2 22.7,18s12.9,14.2 18,22.7c29.1,47.7 21.6,106.5 -14.6,145.7L333.4,284.7z"/>
+    <path android:fillColor="#FE9923" android:pathData="M333.4,284.7l20.6,41.8c-0.2,0.2 -0.2,0.2 -0.4,0.4l-102.5,66.4l-23.8,-2.5l-2.1,19.1l-144.9,94C59.9,517 32.4,514 15.2,496.8l358.3,-358.3c6.8,6.8 12.9,14.2 18,22.7c29.1,47.7 21.6,106.5 -14.6,145.7L333.4,284.7z"/>
+    <path android:fillColor="#FCBF29" android:pathData="M376.8,306.9l-64.6,-64.6c-5.9,-5.9 -15.4,-5.9 -21.2,0c-5.9,5.9 -5.9,15.4 0,21.2l63.1,63.1C362.7,320.9 370.1,314.1 376.8,306.9z"/>
+    <path android:fillColor="#FEDB41" android:pathData="M227.3,263.5c5.9,-5.9 5.9,-15.4 0,-21.2l-58.6,-58.6l-16.7,25.8l54,54C212,269.3 221.5,269.3 227.3,263.5z"/>
+    <path android:fillColor="#FCBF29" android:pathData="M184.9,348.3c-5.9,5.9 -5.9,15.4 0,21.2l40.4,40.4l25.8,-16.7l-44.9,-44.9C200.2,342.5 190.8,342.5 184.9,348.3z"/>
+    <path android:fillColor="#FEDB41" android:pathData="M121.3,369.5c5.9,-5.9 5.9,-15.4 0,-21.2l-35.8,-35.8l-16.7,25.8l31.3,31.3C105.9,375.4 115.4,375.4 121.3,369.5z"/>
+</vector>
+
+
+<!-->Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div-->
