@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.katarzkubat.goveggie.UI.MainActivity">
+    tools:context="com.example.katarzkubat.goveggie.ui.MainActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -39,5 +39,17 @@
         android:text="@string/error_message_internet"
         android:textColor="@color/colorAccent"
         android:textSize="@dimen/error_message" />
+
+    <TextView
+        android:id="@+id/main_location_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/detail_image_margin"
+        android:paddingEnd="@dimen/spacing_large"
+        android:paddingStart="@dimen/spacing_large"
+        android:paddingTop="@dimen/spacing_xxlarge"
+        android:text="@string/error_message_internet"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/error_message"/>
 
 </android.support.design.widget.CoordinatorLayout>

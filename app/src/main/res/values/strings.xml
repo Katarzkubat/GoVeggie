@@ -36,5 +36,6 @@
     <string name="error_message_internet">Ensure you have internet access.</string>
     <string name="error_message_location">Please open settings and turn on location permission.</string>
     <string name="error_message_norestaurants">Sorry, no restaurant to display</string>
+    <string name="api_key">AIzaSyCZyLiKgSRhoxdxHDiqpkeuiwwn6jcxzcY</string>
 
 </resources>

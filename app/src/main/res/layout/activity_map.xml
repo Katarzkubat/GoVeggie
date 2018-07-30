@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/detail_image_margin"
-        tools:context="com.example.katarzkubat.goveggie.UI.MapActivity">
+        tools:context="com.example.katarzkubat.goveggie.ui.MapActivity">
 
     </fragment>
 

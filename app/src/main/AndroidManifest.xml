@@ -16,7 +16,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCZyLiKgSRhoxdxHDiqpkeuiwwn6jcxzcY" />
 
-        <receiver android:name=".Widget.RestaurantWidgetProvider">
+        <receiver android:name=".widget.RestaurantWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -27,12 +27,12 @@
         </receiver>
 
         <service
-            android:name=".Widget.RemoteListService"
+            android:name=".widget.RemoteListService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
 
         <activity
-            android:name=".UI.MainActivity"
+            android:name=".ui.MainActivity"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,31 +41,31 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".UI.DetailActivity"
-            android:parentActivityName=".UI.MainActivity" />
+            android:name=".ui.DetailActivity"
+            android:parentActivityName=".ui.MainActivity" />
         <activity
-            android:name=".UI.FavoritesActivity"
-            android:parentActivityName=".UI.MainActivity" />
+            android:name=".ui.FavoritesActivity"
+            android:parentActivityName=".ui.MainActivity" />
         <activity
-            android:name=".UI.MapActivity"
-            android:parentActivityName=".UI.MainActivity" />
+            android:name=".ui.MapActivity"
+            android:parentActivityName=".ui.MainActivity" />
         <activity
-            android:name=".UI.SettingsActivity"
-            android:parentActivityName=".UI.MainActivity">
+            android:name=".ui.SettingsActivity"
+            android:parentActivityName=".ui.MainActivity">
         </activity>
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".UI.LocationActivity"
-            android:parentActivityName=".UI.MainActivity">
+        <activity android:name=".ui.LocationActivity"
+            android:parentActivityName=".ui.MainActivity">
 
         </activity>
 
         <service
             android:exported="false"
-            android:name=".JobDispatcher.RestaurantJobService"
+            android:name=".jobDispatcher.RestaurantJobService"
             android:enabled="true"
             android:permission="android.permission.BIND_JOB_SERVICE,android.permission.RECEIVE_BOOT_COMPLETED">
             <intent-filter>
