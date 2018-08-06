@@ -51,6 +51,9 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
 
         final Restaurant sr = singleRestaurant;
         final RestaurantAdapter.RestaurantViewHolders fastHolder = holder;
+
+        if(singleRestaurant.getPhotos() != null && singleRestaurant.getPhotos().size() > 0) {
+
         Picasso.get()
                 .load(NetworkUtils.getImageUrl(singleRestaurant.getPhotos().get(0),
                         context.getResources().getString(R.string.api_key)))
@@ -69,6 +72,9 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
                                 .into(fastHolder.mPicture);
                     }
                 });
+        } else {
+            Picasso.get().load(R.drawable.ic_carrot).into(holder.mPicture);
+        }
     }
 
     @Override

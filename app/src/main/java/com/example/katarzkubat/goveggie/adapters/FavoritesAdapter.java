@@ -61,24 +61,30 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
         //Following StackOverflow
         final Restaurant sf = singleFavorite;
         final FavoritesAdapter.FavoriteViewHolders fastHolder = holder;
-        Picasso.get()
-                .load(NetworkUtils.getImageUrl(singleFavorite.getPhotos().get(0),
-                        appContext.getResources().getString(R.string.api_key)))
-                .networkPolicy(NetworkPolicy.OFFLINE)
-                .into(holder.mPicture, new Callback() {
-                    @Override
-                    public void onSuccess() {}
 
-                    @Override
-                    public void onError(Exception e) {
-                        Picasso.get()
-                                .load(NetworkUtils.getImageUrl(sf.getPhotos().get(0),
-                                        appContext.getResources().getString(R.string.api_key)))
-                                .placeholder(R.drawable.ic_carrot)
-                                .error(R.drawable.ic_carrot)
-                                .into(fastHolder.mPicture);
-                    }
-                });
+        if (singleFavorite.getPhotos() != null && singleFavorite.getPhotos().size() > 0) {
+            Picasso.get()
+                    .load(NetworkUtils.getImageUrl(singleFavorite.getPhotos().get(0),
+                            appContext.getResources().getString(R.string.api_key)))
+                    .networkPolicy(NetworkPolicy.OFFLINE)
+                    .into(holder.mPicture, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                        }
+
+                        @Override
+                        public void onError(Exception e) {
+                            Picasso.get()
+                                    .load(NetworkUtils.getImageUrl(sf.getPhotos().get(0),
+                                            appContext.getResources().getString(R.string.api_key)))
+                                    .placeholder(R.drawable.ic_carrot)
+                                    .error(R.drawable.ic_carrot)
+                                    .into(fastHolder.mPicture);
+                        }
+                    });
+    } else {
+            Picasso.get().load(R.drawable.ic_carrot).into(holder.mPicture);
+        }
     }
 
     @Override

@@ -10,8 +10,6 @@ import com.firebase.jobdispatcher.JobService;
 
 public class RestaurantJobService extends JobService {
 
-    private AsyncTask mBackgroundTask;
-
     @Override
     public boolean onStartJob(JobParameters jobParameters) {
 

@@ -111,25 +111,30 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
                 cToolbar.setCollapsedTitleTypeface(ResourcesCompat.getFont(getApplicationContext(), R.font.montserrat));
                 cToolbar.setExpandedTitleTypeface(ResourcesCompat.getFont(getApplicationContext(), R.font.montserrat));
 
-                Picasso.get()
-                        .load(NetworkUtils.getImageUrl(restaurant.getPhotos().get(0),
-                                getApplicationContext().getResources().getString(R.string.api_key)))
-                        .networkPolicy(NetworkPolicy.OFFLINE)
-                        .into(mImageView, new Callback() {
-                            @Override
-                            public void onSuccess() {
-                            }
+                if(restaurant.getPhotos() != null && restaurant.getPhotos().size() > 0) {
 
-                            @Override
-                            public void onError(Exception e) {
-                                Picasso.get()
-                                        .load(NetworkUtils.getImageUrl(restaurant.getPhotos().get(0),
-                                                getApplicationContext().getResources().getString(R.string.api_key)))
-                                        .placeholder(R.drawable.ic_carrot)
-                                        .error(R.drawable.ic_carrot)
-                                        .into(mImageView);
-                            }
-                        });
+                    Picasso.get()
+                            .load(NetworkUtils.getImageUrl(restaurant.getPhotos().get(0),
+                                    getApplicationContext().getResources().getString(R.string.api_key)))
+                            .networkPolicy(NetworkPolicy.OFFLINE)
+                            .into(mImageView, new Callback() {
+                                @Override
+                                public void onSuccess() {
+                                }
+
+                                @Override
+                                public void onError(Exception e) {
+                                    Picasso.get()
+                                            .load(NetworkUtils.getImageUrl(restaurant.getPhotos().get(0),
+                                                    getApplicationContext().getResources().getString(R.string.api_key)))
+                                            .placeholder(R.drawable.ic_carrot)
+                                            .error(R.drawable.ic_carrot)
+                                            .into(mImageView);
+                                }
+                            });
+                } else {
+                    Picasso.get().load(R.drawable.ic_carrot).into(mImageView);
+                }
 
                 mAddress.setText(restaurant.getVicinity());
 
@@ -214,7 +219,8 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
         viewModel.getRestaurant().observe(this, new Observer<Restaurant>() {
             @Override
             public void onChanged(@Nullable Restaurant restaurant) {
-                if (restaurant != null) {
+                if (restaurant != null && restaurant.getGeometry() != null
+                        && restaurant.getGeometry().getLocation() != null) {
                     LatLng singlePlace = new LatLng(restaurant.getGeometry().getLocation().getLat(),
                             restaurant.getGeometry().getLocation().getLng());
 

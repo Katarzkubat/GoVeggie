@@ -3,6 +3,7 @@ package com.example.katarzkubat.goveggie.widget;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Picture;
 import android.os.Bundle;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
@@ -49,7 +50,6 @@ public class RemoteListService extends RemoteViewsService {
             final String restaurantName = restaurantArrayList.get(i).getName();
             final String address = restaurantArrayList.get(i).getVicinity();
             final OpeningHours openHours = restaurantArrayList.get(i).getOpening_hours();
-            final Pictures image = restaurantArrayList.get(i).getPhotos().get(0);
 
             remoteViews.setTextViewText(R.id.widget_restaurant_name, restaurantName);
             remoteViews.setTextViewText(R.id.widget_restaurant_address, address);
@@ -57,6 +57,7 @@ public class RemoteListService extends RemoteViewsService {
 
             try {
                 if (NetworkUtils.isNetworkConnectionAvailable(getApplicationContext())) {
+                    Pictures image = restaurantArrayList.get(i).getPhotos().get(0);
                     Bitmap b = Picasso.get()
                             .load(NetworkUtils.getImageUrl(image, mContext.getResources().getString(R.string.api_key)))
                             .resize(48, 48).centerCrop().get();
@@ -66,6 +67,7 @@ public class RemoteListService extends RemoteViewsService {
                 }
             } catch (IOException e) {
                 e.printStackTrace();
+                remoteViews.setImageViewResource(R.id.widget_icon, R.drawable.ic_carrot);
             }
 
             Bundle extras = new Bundle();

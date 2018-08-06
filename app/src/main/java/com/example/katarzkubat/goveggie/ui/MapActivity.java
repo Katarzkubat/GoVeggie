@@ -15,6 +15,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
 import com.example.katarzkubat.goveggie.model.Restaurant;
 import com.example.katarzkubat.goveggie.R;
@@ -149,11 +150,17 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 assert restaurantList != null;
                 for (Restaurant restaurant : restaurantList) {
 
-                    LatLng singlePlace = new LatLng(restaurant.getGeometry().getLocation().getLat(),
-                            restaurant.getGeometry().getLocation().getLng());
+                    try {
 
-                    Marker marker = mMap.addMarker(new MarkerOptions().position(singlePlace).title(restaurant.getName()));
-                    hashMap.put(marker.getId(), restaurant.getRow_id());
+                        LatLng singlePlace = new LatLng(restaurant.getGeometry().getLocation().getLat(),
+                                restaurant.getGeometry().getLocation().getLng());
+
+                        Marker marker = mMap.addMarker(new MarkerOptions().position(singlePlace).title(restaurant.getName()));
+                        hashMap.put(marker.getId(), restaurant.getRow_id());
+
+                    } catch (NullPointerException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
